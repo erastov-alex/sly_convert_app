@@ -38,8 +38,7 @@ class Coco(Dataset):
         if valid_poly == 0:
             raise ValueError
         return segmentation
-
-    
+ 
     def segmentation_data_fixer(self, segmentation):
         segmentation_result=[]
         if not isinstance(segmentation, list):
