@@ -6,7 +6,8 @@ from supervisely.app.widgets import (
     ProjectThumbnail,
     SelectWorkspace,
     SlyTqdm,
-    Text
+    Text,
+    Checkbox
 )
 from supervisely.app import DialogWindowError
 
@@ -34,8 +35,9 @@ def upload_2sly():
     output_text.hide()
     output_progress = SlyTqdm()
     output_progress.hide()
+    remove_source_files = Checkbox("Remove source files after successful import", checked=True)
     output_container = Container(
-        widgets=[ws_selector, output_project_name, output_project_thumbnail, output_text, output_progress, start_import_btn]
+        widgets=[ws_selector, output_project_name, output_project_thumbnail, output_text, output_progress, start_import_btn, remove_source_files]
     )
     output_card = Card(
         title="Create Project and Import Data",
@@ -54,7 +56,8 @@ def upload_2sly():
             upload(
                 api=g.api,
                 WORKSPACE_ID=g.WORKSPACE_ID,
-                proj_name=output_project_name.get_value()
+                proj_name=output_project_name.get_value(),
+                delete=remove_source_files
                 )
             output_text.set(text="Import success!", status="success")
             output_text.show()

@@ -22,36 +22,18 @@ class MyApp:
         card = selector()
         convert_card = convert()
         upload_card = upload_2sly()
-        stepper = Stepper(
+        g.stepper = Stepper(
                         widgets=[card, convert_card, upload_card],
                         titles=["Select and scan dataset", "Convert local to Supervisely", "Create Project and import data"],
                         )
         card = Card(
                     title="Stepper",
-                    content=stepper,
+                    content=g.stepper,
                 )
-        button_increase = Button(text="Increase step")
-        button_decrease = Button(text="Decrease step")
-        buttons_container = Container(widgets=[button_increase, button_decrease])
-        buttons_card = Card(content=buttons_container)
-        layout = Container(widgets=[card, buttons_card])
-
+        layout = Container(widgets=[card])
 
         # layout = Container(widgets=[card,convert_card, upload_card])
         app = sly.Application(layout=layout)
-
-        @button_increase.click
-        def click_button():
-            curr_step = stepper.get_active_step()
-            curr_step += 1
-            stepper.set_active_step(curr_step)
-
-
-        @button_decrease.click
-        def click_button():
-            curr_step = stepper.get_active_step()
-            curr_step -= 1
-            stepper.set_active_step(curr_step)
         
         return app
 

@@ -37,7 +37,11 @@ def convert():
                         text="Convertation success!'", status="success"
                     )
             convert_text.show()
+            curr_step = g.stepper.get_active_step()
+            curr_step += 1
+            g.stepper.set_active_step(curr_step)
             # text.text = f'\n Convertation success!'
+            convert_card.lock()
         except Exception as e:
             convert_text.status = "error"
             convert_text.set(

@@ -4,6 +4,9 @@ import supervisely as sly
 from dotenv import load_dotenv
 
 DATA = None
+stepper = None
+input_console = None
+input_text = None
 
 IS_PRODUCTION = sly.is_production()
 if IS_PRODUCTION is True:
