@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from supervisely.io.json import load_json_file
 
 
-def upload(delete = False, api=None, WORKSPACE_ID=None, proj_name=None):
+def upload(delete = False, api=None, WORKSPACE_ID=None, proj_name=None, progress_bar=None):
     if not api:
         path_advanced = os.path.expanduser("~\\env\\advanced.env")
         path_local = os.path.expanduser("~\\env\\local.env")
@@ -46,8 +46,13 @@ def upload(delete = False, api=None, WORKSPACE_ID=None, proj_name=None):
         file_path = os.path.join(os.path.join('output_sly','ann'), file)
         ann_names.append(file)
         ann_paths.append(file_path)
+    images_names.sort()
+    images_paths.sort()
+    ann_paths.sort()
+    if not progress_bar:
+        progress_bar = tqdm
     #Process folder with images and upload them to Supervisely server
-    with tqdm(total=len(images_paths)) as pbar:
+    with progress_bar(total=len(images_paths)) as pbar:
         for img_name, img_path, ann_path in zip(images_names, images_paths, ann_paths):
             try:
                 # Upload image and annotation into dataset on Supervisely server
@@ -57,13 +62,17 @@ def upload(delete = False, api=None, WORKSPACE_ID=None, proj_name=None):
                 sly.logger.trace(f"Annotation has been uploaded")
             except Exception as e:
                 sly.logger.warn("Skip image", extra={"name": img_name, "reason": repr(e)})
+                shutil.rmtree("output_sly")
+                shutil.rmtree("input")
             finally:
                 # Update progress bar
                 pbar.update(1)
     sly.logger.info(f"Result project: id={project.id}, name={project.name}")
     if delete:
         shutil.rmtree("output_sly")
+        shutil.rmtree("input")
         return
     if input('Success! Delete local output? \n     [y] for yes\n     [n] for no\n') == 'y':
         shutil.rmtree("output_sly")
+        shutil.rmtree("input")
     pass

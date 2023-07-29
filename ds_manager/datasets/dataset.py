@@ -87,27 +87,28 @@ class Dataset():
         png_path = []
         jpeg_path= []
         for rootdir, dirs, files in os.walk(self.data):
-            for file in files:
-                if file.endswith('jpg'):
-                    img_ext = 'jpg'
-                    jpegfound = True 
-                    jpg_path.append(rootdir)
-                    if pngfound:
-                        mask = True
-                elif file.endswith('jpeg'):
-                    img_ext = 'jpeg'
-                    jpegfound = True
-                    if pngfound:
-                        mask = True
-                    jpeg_path.append(rootdir)
-                elif file.endswith('png'):
-                    if not jpegfound:
-                        img_ext = 'png'
-                        pngfound = True
-                        png_path.append(rootdir)
-                    else:
-                        mask = True
-                        png_path.append(rootdir)
+            if self.img_path in rootdir:
+                for file in files:
+                    if file.endswith('jpg'):
+                        img_ext = 'jpg'
+                        jpegfound = True 
+                        jpg_path.append(rootdir)
+                        if pngfound:
+                            mask = True
+                    elif file.endswith('jpeg'):
+                        img_ext = 'jpeg'
+                        jpegfound = True
+                        if pngfound:
+                            mask = True
+                        jpeg_path.append(rootdir)
+                    elif file.endswith('png'):
+                        if not jpegfound:
+                            img_ext = 'png'
+                            pngfound = True
+                            png_path.append(rootdir)
+                        else:
+                            mask = True
+                            png_path.append(rootdir)
         if not img_ext:
             raise NotImplemented
         elif img_ext == 'jpeg':
@@ -117,7 +118,7 @@ class Dataset():
         else:
             img_path = png_path
         if mask:
-            if input('MASKS FOUNDED, CONVERT TO SHAPE BITMAP? \n     [y] for yes\n     [n] for no\n') == 'y':
+            if self.mask:
                 self.mask = True
         return img_ext, np.unique(img_path), self.mask
 

@@ -53,11 +53,12 @@ def upload_2sly():
                 output_text.set(text="Please, enter project name", status="error")
                 output_text.show()
                 return
+            output_progress.show()
             upload(
                 api=g.api,
                 WORKSPACE_ID=g.WORKSPACE_ID,
                 proj_name=output_project_name.get_value(),
-                delete=remove_source_files
+                delete=remove_source_files,progress_bar=output_progress
                 )
             output_text.set(text="Import success!", status="success")
             output_text.show()

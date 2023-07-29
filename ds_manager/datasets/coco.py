@@ -89,8 +89,6 @@ class Coco(Dataset):
                 if value['file_name'] == img.name:
                     for label in annotations[key]:
                         geometry = self.segmentation_data_fixer(label['segmentation'])
-                        if geometry is None:
-                            print(123)
                         cat_id = label["category_id"]
                         label_name = categories[cat_id]['name']
                         annotation.append([label_name, geometry])

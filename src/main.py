@@ -8,6 +8,7 @@ from supervisely.app.widgets import (
     Button,
     Stepper
 )
+
 import src.globals as g
 from src.ui.file_select import selector
 from src.ui.converting import convert
@@ -20,10 +21,9 @@ class MyApp:
 
     def run(self):
         card = selector()
-        convert_card = convert()
         upload_card = upload_2sly()
         g.stepper = Stepper(
-                        widgets=[card, convert_card, upload_card],
+                        widgets=[card, upload_card],
                         titles=["Select and scan dataset", "Convert local to Supervisely", "Create Project and import data"],
                         )
         card = Card(
