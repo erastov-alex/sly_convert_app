@@ -1,6 +1,6 @@
 <div align="center" markdown>
 
-<img src="https://i.ibb.co/LkNcFxR/DS-MANAGER-SLY.png"/>
+<img src=https://i.ibb.co/6HfvSff/dataset-app.png"/>
 
 # Import Dataset in COCO/Yolo/Cityscapes/PascalVOC format
 
@@ -21,37 +21,7 @@ Supervisely app for import datasets in supported formats. App based on Supervise
 
 #### Input files structure
 
-You can upload a directory or an archive. If you are uploading an archive, it must contain a single top-level directory.
-
-Directory name defines project name. Subdirectories define dataset names.
-
-Project directory example:
-
-```
-.
-cats_vs_dogs_project
-├── cats
-│   ├── ann
-│   │   ├── cats_1.jpg.json
-│   │   ├── ...
-│   │   └── cats_9.jpg.json
-│   └── img
-│       ├── cats_1.jpg
-│       ├── ...
-│       └── cats_9.jpg
-├── dogs
-│   ├── ann
-│   │   ├── dogs_1.jpg.json
-│   │   ├── ...
-│   │   └── dogs_9.jpg.json
-│   └── img
-│       ├── dogs_1.jpg
-│       ├── ...
-│       └── dogs_9.jpg
-└── meta.json
-```
-
-As a result we will get project `cats_vs_dogs_project` with 2 datasets named: `cats` and `dogs`.
+Only folder with dataset. Before using read [Strict data format rule](https://github.com/erastov-alex/sly-convert#strict-data-format-rule)
 
 # How to Run
 
@@ -63,10 +33,14 @@ As a result we will get project `cats_vs_dogs_project` with 2 datasets named: `c
 
 **Step 4.** Go to localhost:8000 to use this app
 
-**Step 5.** Drag'n'Drop your dataset and click 'Scan' button
+**Step 5.** Drag'n'Drop your dataset. If your dataset contain PNG masks use input box to insert image's folder name. Click 'Scan' button
 
 **Step 6.** Create project in Supervisely and click 'Import' button
 
 ### About DS Manager for CV
 
 We use [DS Manager for CV](https://github.com/erastov-alex/sly-convert) for this app. Read more about on GitHub page.
+
+#Tests
+
+[This](https://github.com/erastov-alex/dataset_samples) tests passed.
