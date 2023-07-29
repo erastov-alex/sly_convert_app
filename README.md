@@ -2,8 +2,6 @@
 
 <img src="https://i.ibb.co/6HfvSff/dataset-app.png"/>
 
-# Import Dataset in COCO/Yolo/Cityscapes/PascalVOC format
-
 <p align="center">
   <a href="#Overview">Overview</a> •
   <a href="#How-to-Use">How to Use</a> •
